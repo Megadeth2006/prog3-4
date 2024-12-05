@@ -1,0 +1,120 @@
+@startuml
+class Main {
+  + generateRandVal(base: double, dispersion: double): double
+  + main(args: String[]): void
+}
+
+class City {
+  - name: String
+  - streets: List<Street>
+  + addStreet(street: Street): void
+  + removeStreet(street: Street): void
+  + setStreets(streets:ArrayList<Street>): void
+  + getStreets(): ArrayList<Street>
+  + describe(): void
+
+}
+
+class Street {
+  - name: String
+- hasLights: boolean
+- attractions: List<Attractions>
+- shorties: List<Shorty>
++ addAttraction(attraction: Attraction): void
++ addShorty(shorty: Shorty): void
++ describe(): void
+}
+abstract class Attraction {
+- name: String
+- state: String
+# start(): void(abstract)
++ stop(): void
+}
+class Carousel{
++start(): void
++ play(): void
+}
+class FerrisWheel{
++ start(): void
++ play(): void
+}
+enum AttractionStatus{
+{OPERATIONAL, IN_OPERATION, OUT_OF_ORDER}
+}
+class Shorty {
+  - name: String
+- isHungry: boolean
+- hasFood: boolean
++ eat(): void
++ walk(): void
++describe(): void
+}
+class Neznaika {
+- name: String
+- hungry: boolean
++ eat(): void
++ walk(): void
++describe(): void
+}
+class Kozlik{
+- name: String
+- hungry: boolean
++ eat(): void
++ walk(): void
++describe(): void
+}
+enum Mood{
+{Happy, Envy, Sad}
+}
+class OtherShorty{
++ eat(): void
++ walk(): void
++describe(): void
+}
+exception AttractionException {
++ AttractionException(message: String)
++  getMessage(): String
+}
+exception HungryException {
++ HungryException(message: String)
++  getMessage(): String
+}
+
+class Restaurant {
+- customers: List<Shorty>
++ addCustomer(shorty: Shorty): void
++ describe(): void
+}
+
+
+
+exception Exception{
+}
+
+
+Main o-- City
+City o-- Street
+Attraction o-- Street
+Attraction <-- Carousel
+Attraction <-- FerrisWheel
+Street  o-- Shorty
+Shorty <-- Neznaika
+Shorty <-- Kozlik
+Shorty <-- OtherShorty
+Neznaika o-- Mood
+Kozlik o-- Mood
+Restaurant --o Shorty
+AttractionStatus --o FerrisWheel
+AttractionStatus --o Carousel
+
+Main o-- AttractionException
+Main o-- HungryException
+
+Exception <|-- AttractionException
+AttractionException : + AttractionException(message: String)
+AttractionException : + getMessage(): String
+
+Exception <|-- HungryException
+HungryException :  HungryException(message: String)
+HungryException : getMessage(): String
+@enduml
