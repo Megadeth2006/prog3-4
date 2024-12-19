@@ -13,18 +13,10 @@ public class Neznaika extends Shorty {
     }
     @Override
     public void walk() throws HungryException {
-        if (this.isHungry && this.lookedRestaurant && this.mood == Mood.SAD) throw new HungryException("Незнайка хочет есть, посмотрел на ресторан и у него настроение: " + this.mood);
-        System.out.println(this.name + " гуляет с настроением " + this.mood);
+        if (this.isHungry && this.lookedRestaurant && this.mood == Mood.SAD) throw new HungryException("Коротышка голоден, значит пойти на прогулку не может");
+        System.out.println(this.name + " гуляет с настроением " + this.mood.getName());
     }
-    @Override
-    public void dance() {
-        if (this.mood == Mood.HAPPY) {
-            System.out.println(this.name + " танцует");
-        } else {
-            this.mood = Mood.HAPPY;
-            System.out.println(this.name + " танцует и улучшает свое настроение до " + this.mood);
-        }
-    }
+
     @Override
     public void lookAtTheRestaurant(){
         this.lookedRestaurant = true;

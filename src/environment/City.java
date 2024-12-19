@@ -7,7 +7,6 @@ import java.util.ArrayList;
 public class City {
     protected String name;
     protected ArrayList<Street> streets;
-    protected String Time;
 
     public City(String name){
         this.name = name;
@@ -28,6 +27,7 @@ public class City {
     public ArrayList<Street> getStreets(){
         return this.streets;
     }
+
     @Override
     public boolean equals(Object obj){
         if (obj == this) return true;

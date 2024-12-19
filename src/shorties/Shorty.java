@@ -48,7 +48,7 @@ abstract public class Shorty {
 
     @Override
     public int hashCode() {
-        return super.hashCode() + this.getName().hashCode();
+        return this.getName().hashCode();
     }
 
 

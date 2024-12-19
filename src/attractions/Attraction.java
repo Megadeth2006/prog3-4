@@ -23,13 +23,8 @@ public abstract class Attraction implements AttractionUsing {
 
     }
 
-    @Override
-    public boolean isAvailable() {
-        if (this.status == AttractionStatus.OPERATIONAL || this.status == AttractionStatus.UNDER_REPAIR){
-            return false;
-        }
-        else return true;
-    }
+
+    abstract boolean isAvailable(); {}
 
     @Override
     public String toString(){return "{name: " + this.name + "}";}

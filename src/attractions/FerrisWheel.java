@@ -34,7 +34,7 @@ public class FerrisWheel extends Attraction {
         if (this.status == AttractionStatus.UNDER_REPAIR || Objects.equals(launcher.getId(), 0)) {
             System.out.println("Аттракцион " + this.name + " нельзя запустить в данный момент: не работает или нет контроллера");
         }else{
-            if (this.users.size() == 0){
+            if (this.users.isEmpty()){
                 System.out.println("Никто не сидит на аттракционе " + this.name);
             }else{
                 this.status = AttractionStatus.OPERATIONAL;
@@ -42,6 +42,14 @@ public class FerrisWheel extends Attraction {
             }
         }
     }
+    @Override
+    public boolean isAvailable(){
+        if (this.status == AttractionStatus.OPERATIONAL || this.status == AttractionStatus.UNDER_REPAIR){
+            return false;
+        }
+        else return true;
+    }
+
 
 
 }

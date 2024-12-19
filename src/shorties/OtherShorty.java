@@ -8,20 +8,6 @@ public class OtherShorty extends Shorty {
     }
     @Override
     public void walk(){
-        System.out.println("Коротышка " + Integer.toString(id) +" гуляет с настроением: " + this.mood);
+        System.out.println("Коротышка " + Integer.toString(id) +" гуляет с настроением: " + this.mood.getName());
     }
-    @Override
-    public void dance(){
-        if (this.mood == Mood.HAPPY){
-            System.out.println("Также этот коротышка танцует");
-        }
-        else{
-            this.mood = Mood.HAPPY;
-            System.out.println("Также этот коротышка танцует и улучшает свое настроение до "+this.mood);
-        }
-
-
-
-    }
-
 }

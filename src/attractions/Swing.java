@@ -41,6 +41,13 @@ public class Swing extends Attraction {
         this.status = AttractionStatus.NOT_RUNNING;
         System.out.println("Аттракцион " + this.name + " перестал качаться! Подошло время покинуть аттракцион");
     }
+    @Override
+    public boolean isAvailable(){
+        if (this.status == AttractionStatus.OPERATIONAL || this.status == AttractionStatus.UNDER_REPAIR){
+            return false;
+        }
+        else return true;
+    }
 
 
 }

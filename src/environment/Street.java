@@ -1,6 +1,4 @@
 package environment;
-import attractions.Attraction;
-import enums.Mood;
 import enums.StreetState;
 import shorties.Shorty;
 
@@ -10,9 +8,8 @@ public class Street {
     protected String name;
 
     protected StreetState state;
-    protected boolean hasLights;
     protected ArrayList<Shorty> shorties = new ArrayList<>();
-    protected ArrayList<AD> adList = new ArrayList<>();
+    protected ArrayList<Advertisement> advertisementList = new ArrayList<>();
 
     public Street(String name){
         this.name = name;
@@ -24,17 +21,17 @@ public class Street {
     public ArrayList<Shorty> getShorties(){
         return this.shorties;
     }
-    public void addAD(AD ad){
-        this.adList.add(ad);
+    public void addAD(Advertisement advertisement){
+        this.advertisementList.add(advertisement);
     }
-    public ArrayList<AD> getAD(){
-        return this.adList;
+    public ArrayList<Advertisement> getAdvertisement(){
+        return this.advertisementList;
     }
-    public void removeAD(AD ad){
-        this.adList.remove(ad);
+    public void removeAD(Advertisement advertisement){
+        this.advertisementList.remove(advertisement);
     }
-    public void setAD(ArrayList<AD> adList){
-        this.adList = adList;
+    public void setAD(ArrayList<Advertisement> advertisementList){
+        this.advertisementList = advertisementList;
     }
     public void setState(StreetState state){
         this.state = state;

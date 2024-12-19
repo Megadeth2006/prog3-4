@@ -5,7 +5,7 @@ import enums.AttractionStatus;
 import enums.Mood;
 import enums.StreetState;
 import enums.Time;
-import environment.AD;
+import environment.Advertisement;
 import environment.City;
 import environment.Restaurant;
 import environment.Street;
@@ -61,13 +61,13 @@ public class Main {
         };
     }
 
-    public static void main(String[] args) throws HungryException {
+    public static void main(String[] args) {
 
         //
         City city = new City("Сан-Комарик");
         Street street1 = new Street("Центральная");
-        street1.addAD(new AD(""));
-        street1.addAD(new AD("Пепси-Кольная"));
+        street1.addAD(new Advertisement(""));
+        street1.addAD(new Advertisement("Пепси-Кольная"));
         city.addStreet(street1);
         Restaurant restaurant = new Restaurant();
         //
@@ -78,7 +78,7 @@ public class Main {
 
 
         Kozlik kozlik = new Kozlik(getRandomValue() < 0.5, getRandomValue() < 0.5, false, getMood(), id++);
-        Neznaika neznaika = new Neznaika(getRandomValue() < 0.5, getRandomValue() < 0.5, false, getMood(), id++);
+        Neznaika neznaika = new Neznaika(true, true, false, getMood(), id++);
         street1.addShorties(kozlik);
         street1.addShorties(neznaika);
 
@@ -91,19 +91,19 @@ public class Main {
 
 
 
-        System.out.println("Скоро наступило время: " + getTime());
+        System.out.println("Скоро наступило время: " + getTime().getName());
         System.out.println("Название города, в котором происходят события: " + city.getName());
         System.out.print("Повсюду засветились огни реклам: ");
-        for (AD ad: street1.getAD()){
-            System.out.print( ad.company());
+        for (Advertisement advertisement : street1.getAdvertisement()){
+            System.out.print( advertisement.company());
         }
         System.out.println();
         street1.setState(getRandState());
-        System.out.println("Улица " + street1.getName() + " наполнилась " + street1.getState());
+        System.out.println("Улица " + street1.getName() + " наполнилась " + street1.getState().getName());
 
         if (getRandomValue() < 0.7) {
             for (int i = 0; i < 5 + (int) (Math.random() * 10); ++i) {
-                restaurant.addCustomer(new OtherShorty(getRandomValue() < 0.5, true, true, getMood(), id++));
+                restaurant.addCustomer(new OtherShorty(getRandomValue() < 0.5, getRandomValue() < 0.5, getRandomValue() < 0.5, getMood(), id++));
             }
         }
         System.out.println(restaurant.getCustomers().size() + " коротышек зашли в ресторан");
@@ -112,7 +112,11 @@ public class Main {
         ArrayList<Shorty> streetShorties = street1.getShorties();
         System.out.println("На улице всего " + streetShorties.size() + " коротышек");
         for (Shorty currentShorty: streetShorties){
-            currentShorty.walk();
+            try {
+                currentShorty.walk();
+            }catch (HungryException e){
+                System.out.println(e.getMessage());
+            }
             if (getRandomValue() < 0.6){
                 currentShorty.dance();
             }

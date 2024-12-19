@@ -50,6 +50,13 @@ public class Carousel extends Attraction{
         this.status = AttractionStatus.NOT_RUNNING;
         System.out.println("Аттракцион " + this.name + " остановлен. Всем покинуть места!!!");
     }
+    @Override
+    public boolean isAvailable(){
+        if (this.status == AttractionStatus.OPERATIONAL || this.status == AttractionStatus.UNDER_REPAIR){
+            return false;
+        }
+        else return true;
+    }
 
 
 
