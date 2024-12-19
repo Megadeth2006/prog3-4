@@ -1,46 +1,66 @@
 package shorties;
+import enums.Mood;
+
+import java.util.Objects;
+
+
+
 import exceptions.HungryException;
 
-public class Shorty {
-    private final String name;      // Имя коротышки
-    private boolean isHungry; // Состояние голода (голоден ли)
-    private boolean hasFood;  // Есть ли еда
+abstract public class Shorty {
+    protected int id = 0;
+    protected String name = "";
+    protected boolean isHungry = false;
+    protected boolean lookedRestaurant = false;
+    protected boolean inRestaurant = false;
+    protected Mood mood;
 
-    // Конструктор для создания коротышки с именем и состоянием голода и еды
-    public Shorty(String name, boolean isHungry, boolean hasFood) {
-        this.name = name;
+    public Shorty(boolean isHungry, boolean lookedRestaurant, boolean inRestaurant, Mood mood, int id){
         this.isHungry = isHungry;
-        this.hasFood = hasFood;
+        this.lookedRestaurant = lookedRestaurant;
+        this.inRestaurant = inRestaurant;
+        this.mood = mood;
+        this.id = id;
     }
 
-    // Метод для того, чтобы коротышка поел
-    public void eat() throws HungryException {
-        if (isHungry) {
-            if (!hasFood) {
-                // Если нет еды, выбрасываем исключение
-                throw new HungryException(name + " голодный, но ему нечего поесть");
-            }
-            // Если еда есть, поедаем
-            System.out.println(name + " ест.");
-            isHungry = false; // Коротышка не голоден после еды
-        } else {
-            System.out.println(name + " не голодный.");
-        }
+    public void walk() throws HungryException{
+
+    };
+    public void dance(){
+        this.mood = Mood.HAPPY;
+    }
+    public int getId(){
+        return this.id;
+    }
+    public Mood getMood(){
+        return this.mood;
+    }
+    public boolean isInRestaurant(){
+        return inRestaurant;
+    }
+    public void lookAtTheRestaurant(){
+        this.lookedRestaurant = true;
+    }
+    public String getName(){
+        return this.name;
     }
 
-    // Метод для установки еды (например, покупка еды)
-    public void setFood(boolean hasFood) {
-        this.hasFood = hasFood;
+
+    @Override
+    public int hashCode() {
+        return super.hashCode() + this.getName().hashCode();
     }
 
-    // Метод для того, чтобы установить голод
-    public void setHunger(boolean isHungry) {
-        this.isHungry = isHungry;
-    }
 
-    // Метод для вывода состояния коротышки
+    @Override
+    public boolean equals(Object obj){
+        if (obj == this) return true;
+        if (obj == null || obj.getClass() != this.getClass()) return false;
+        Shorty shorty = (Shorty) obj;
+        return (this.id == shorty.id);
+    }
     @Override
     public String toString() {
-        return name + " is " + (isHungry ? "голодный" : "не голодный") + " и " + (hasFood ? "имеет еду" : "не имеет еду.");
+        return Integer.toString(id);
     }
 }

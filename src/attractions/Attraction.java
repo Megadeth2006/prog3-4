@@ -1,45 +1,36 @@
 package attractions;
 
-import exceptions.AttractionException;
 import enums.AttractionStatus;
-public abstract class Attraction {
-    private String name;
-    private AttractionStatus status;  // Используем enum для состояния аттракциона
 
-    public Attraction(String name, AttractionStatus status) {
-        this.name = name;
+public abstract class Attraction implements AttractionUsing {
+    protected String name;
+    protected AttractionStatus status;
+
+
+    public Attraction(AttractionStatus status){
+
         this.status = status;
     }
-
-    public abstract void start() throws AttractionException;
-
-    public String getName() {
-        return name;
+    public AttractionStatus getStatus(){
+        return this.status;
     }
 
-    public AttractionStatus getStatus() {
-        return status;
-    }
 
-    public void setStatus(AttractionStatus status) {
-        this.status = status;
+    abstract public void start();
+    public void stop(){
+
+        this.status = AttractionStatus.NOT_RUNNING;
+
     }
 
     @Override
-    public String toString() {
-        return name + " is " + status;
+    public boolean isAvailable() {
+        if (this.status == AttractionStatus.OPERATIONAL || this.status == AttractionStatus.UNDER_REPAIR){
+            return false;
+        }
+        else return true;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        Attraction that = (Attraction) obj;
-        return name.equals(that.name) && status == that.status;
-    }
-
-    @Override
-    public int hashCode() {
-        return 31 * name.hashCode() + status.hashCode();
-    }
+    public String toString(){return "{name: " + this.name + "}";}
 }

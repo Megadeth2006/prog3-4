@@ -1,30 +1,58 @@
 package attractions;
 
-import exceptions.AttractionException;
+import enums.AttractionStatus;
+import enums.Mood;
+import shorties.OtherShorty;
+import shorties.Shorty;
 
-public class Carousel extends Attraction {
+import java.util.ArrayList;
+import java.util.Objects;
 
-    public Carousel(String name, boolean isOperational) {
-        super(name, isOperational); // Конструктор родительского класса
-    }
+public class Carousel extends Attraction{
+    protected ArrayList<Shorty> users = new ArrayList<>();
+    protected Shorty launcher = new OtherShorty(false, false, false, Mood.SAD, 0);
 
-    // Реализация метода start()
-    @Override
-    public void start() throws AttractionException {
-        if (!isOperational) {
-            // Если аттракцион не работает, выбрасываем исключение
-            throw new AttractionException(name + " is not operational.");
+    public Carousel(AttractionStatus status){
+        super(status);
+        this.name = "Карусель";
+        if (status == AttractionStatus.UNDER_REPAIR){
+            System.out.println("Аттракцион " + this.name + " сломан");
         }
-        System.out.println(name + " is now running!");
+
     }
 
-    // Реализация метода stop()
-    @Override
-    public void stop() throws AttractionException {
-        if (!isOperational) {
-            // Если аттракцион не работает, выбрасываем исключение
-            throw new AttractionException(name + " is not operational.");
-        }
-        System.out.println(name + " has stopped.");
+    public void setLauncher(Shorty launcher){
+        this.launcher = launcher;
+        System.out.println("Коротышка " + launcher.getId() + " стал контроллером " + this.name);
     }
+    public void loadUsers(Shorty user){
+        this.users.add(user);
+
+
+    }
+    @Override
+    public void start()  {
+        if (this.status == AttractionStatus.UNDER_REPAIR || this.launcher.getId() == 0) {
+            System.out.println("Аттракцион " + this.name + " нельзя запустить в данный момент: не работает или нет контроллера");
+        }else{
+            if (this.users.size() == 0){
+                System.out.println("Никто не сидит на аттракционе " + this.name);
+            }else{
+                this.status = AttractionStatus.OPERATIONAL;
+                System.out.println("Аттракцион " + this.name + " запущен в работу!");
+            }
+        }
+
+
+    }
+    @Override
+    public void stop(){
+        this.status = AttractionStatus.NOT_RUNNING;
+        System.out.println("Аттракцион " + this.name + " остановлен. Всем покинуть места!!!");
+    }
+
+
+
+
+
 }
